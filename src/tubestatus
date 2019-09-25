@@ -34,7 +34,7 @@ do
 
   if [ "$line_status" == "Good Service" ]
   then
-    printf "${GREEN} ● ${NC} %-20s $line_status \n" "$line_name"
+    printf "${GREEN} ● ${NC} %-20s $line_status\n" "$line_name"
   elif [ "$line_status" == "Minor Delays" ]
   then
     printf "${YELLOW} ● ${NC} %-20s $line_status | $delay_reason \n" "$line_name"
