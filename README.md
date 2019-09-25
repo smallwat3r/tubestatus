@@ -1,7 +1,7 @@
 # tubestatus
 Access the London tube lines statuses in real-time from your terminal.
 
-![Alt Text](https://github.com/smallwat3r/tubestatus/blob/master/demo/demo.gif)  
+![Alt Text](https://github.com/smallwat3r/tubestatus/blob/master/_demo/demo.gif)  
 
 ## Dependency
 To run this script you will need to install `jq`
