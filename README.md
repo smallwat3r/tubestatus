@@ -6,7 +6,7 @@ Access the London Tube lines status in real-time from your terminal.
 ## Dependency
 To run this script you will need to install `jq`
 - MacOS `brew install jq`
-- Linux / Debian `apt-get install jq`
+- Ubuntu / Debian `apt-get install jq`
 
 ## Installation
 ```sh
