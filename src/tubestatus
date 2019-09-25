@@ -21,18 +21,16 @@ then
   exit 0
 fi
 
+url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
 
-data=$(curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status")
-
-for row in $(echo "${data}" | jq -r ".[] | @base64")
+curl -s "$url" \
+| jq -j '.[] |
+  "line_name=" + (.name | @sh), (.lineStatuses[0] |
+  " line_status=" + (.statusSeverityDescription | @sh),
+  " delay_reason=" + (.reason | @sh) + "\n")' \
+| while IFS= read -r line
 do
-  _get() {
-    echo ${row} | base64 --decode | jq -r ${1}
-  }
-
-  line_name=$(_get ".name")
-  line_status=$(_get ".lineStatuses[0].statusSeverityDescription")
-  delay_reason=$(_get ".lineStatuses[0].reason")
+  eval "$line"
 
   if [ "$line_status" == "Good Service" ]
   then
