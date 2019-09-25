@@ -1,7 +1,7 @@
 # tubestatus
 
 install:
-	cp tubestatus /usr/local/bin/tubestatus
+	cp src/tubestatus /usr/local/bin/tubestatus
 	chmod 755 /usr/local/bin/tubestatus
 
 uninstall:
