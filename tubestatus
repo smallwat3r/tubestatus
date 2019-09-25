@@ -1,0 +1,50 @@
+#!/bin/bash
+# File  : tubestatus.sh
+# Author: Matthieu Petiteau <mpetiteau.pro@gmail.com>
+# Date  : 25.09.2019
+
+# This script fetch the tube line statuses from the TFL API
+# https://api.tfl.gov.uk and returns the results in terminal.
+
+
+RED="\033[0;31m"
+YELLOW="\033[1;33m"
+GREEN="\033[0;32m"
+NC="\033[0m"
+
+if ! command -v jq &> /dev/null
+then
+  echo "You need to install jq to run this script."
+  echo "github repo: https://github.com/stedolan/jq"
+  echo
+  echo "macos         `brew install jq`"
+  echo "ubuntu/debian `apt-get install jq`"
+  exit 0
+fi
+
+
+data=$(curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status")
+
+for row in $(echo "${data}" | jq -r ".[] | @base64")
+do
+  _get() {
+    echo ${row} | base64 --decode | jq -r ${1}
+  }
+
+  line_name=$(_get ".name")
+  line_status=$(_get ".lineStatuses[0].statusSeverityDescription")
+  delay_reason=$(_get ".lineStatuses[0].reason")
+
+  if [ "$line_status" == "Good Service" ]
+  then
+    printf "${GREEN} ● ${NC} %-20s $line_status \n" "$line_name"
+  elif [ "$line_status" == "Minor Delays" ]
+  then
+    printf "${YELLOW} ● ${NC} %-20s $line_status | $delay_reason \n" "$line_name"
+  elif [ "$delay_reason" != "null" ]
+  then
+    printf "${RED} ● ${NC} %-20s - $line_status | $delay_reason\n" "$line_name"
+  else
+    printf "${RED} ● ${NC} %-20s - $line_status | Unknown reason\n" "$line_name"
+  fi
+done
