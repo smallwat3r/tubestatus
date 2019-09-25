@@ -40,8 +40,8 @@ do
     printf "${YELLOW} ● ${NC} %-20s $line_status | $delay_reason \n" "$line_name"
   elif [ "$delay_reason" != "null" ]
   then
-    printf "${RED} ● ${NC} %-20s - $line_status | $delay_reason\n" "$line_name"
+    printf "${RED} ● ${NC} %-20s $line_status | $delay_reason\n" "$line_name"
   else
-    printf "${RED} ● ${NC} %-20s - $line_status | Unknown reason\n" "$line_name"
+    printf "${RED} ● ${NC} %-20s $line_status | Unknown reason\n" "$line_name"
   fi
 done
