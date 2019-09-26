@@ -8,10 +8,31 @@
 
 if ! command -v jq &>/dev/null; then
   echo "You need to install jq to run this script."
-  echo "github repo: https://github.com/stedolan/jq"
+  echo "https://github.com/stedolan/jq"
   echo
-  echo "macos         $(brew install jq)"
-  echo "ubuntu/debian $(apt-get install jq)"
+  case "$OSTYPE" in
+  solaris*)
+    echo "pkgutil -i jq"
+    ;;
+  darwin*)
+    echo "brew install jq"
+    ;;
+  linux*)
+    echo "Debian/Ubuntu  sudo apt-get install jq"
+    echo "Fedora         sudo dnf install jq"
+    echo "openSUSE       sudo zipper install jq"
+    echo "Arch           sudo pacman -Sy jq"
+    ;;
+  bsd*)
+    echo "pkg install jq"
+    ;;
+  msys*)
+    echo "chocolatey install jq"
+    ;;
+  *)
+    echo "https://stedolan.github.io/jq/download/"
+    ;;
+  esac
   exit 0
 fi
 
