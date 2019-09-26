@@ -43,15 +43,15 @@ NONE='\033[0m'
 
 curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
   jq -j '.[] |
-  "●;" + (.name) + ";",
-  (.lineStatuses[0] | (.statusSeverity), ";" +
-  (.statusSeverityDescription) + ";",
-  (.reason // "NA") + ";\n")' |
-    awk -F ";" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
+  "●¬" + (.name) + "¬",
+  (.lineStatuses[0] | (.statusSeverity), "¬" +
+  (.statusSeverityDescription) + "¬",
+  (.reason // "NA") + "¬\n")' |
+    awk -F "¬" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
       if ( $5 == "NA" ) reason="";
       else reason=$5;
       if ( $3 == 10 ) color=g;
       else if ( $3 >= 8 ) color=y;
       else color=r;
-      print color$1,n$2,":",$4,":",reason;
-    }' | column -t -s":"
+      print color$1,n$2,"¬",$4,"¬",reason;
+    }' | column -t -s"¬"
