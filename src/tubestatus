@@ -36,22 +36,23 @@ if ! command -v jq &>/dev/null; then
   exit 0
 fi
 
+DELIMITER="¬"
 RED='\033[01;31m'
 GREEN='\033[01;32m'
 YELLOW='\033[01;33m'
 NONE='\033[0m'
 
 curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
-  jq --arg delim "¬" -j '.[] |
+  jq --arg delim $DELIMITER -j '.[] |
   (.name) + $delim,
   (.lineStatuses[0] | (.statusSeverity), $delim +
   (.statusSeverityDescription), $delim +
   (.reason) + $delim + "\n")' |
-  awk -F "¬" -v delim="¬" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
+  awk -F "¬" -v delim=$DELIMITER -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
     if ( $4 ) reason=$4;
     else reason="";
     if ( $2 == 10 ) color=g;
     else if ( $2 >= 8 ) color=y;
     else color=r;
     print color "●" n, $1 delim $3 delim reason;
-  }' | column -t -s "¬"
+  }' | column -t -s $DELIMITER
