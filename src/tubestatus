@@ -36,21 +36,22 @@ if ! command -v jq &>/dev/null; then
   exit 0
 fi
 
-url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
+RED='\033[01;31m'
+GREEN='\033[01;32m'
+YELLOW='\033[01;33m'
+NONE='\033[0m'
 
-curl -s "$url" |
+curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
   jq -j '.[] |
-  "line_name=" + (.name | @sh), (.lineStatuses[0] |
-  " line_status=" + (.statusSeverityDescription | @sh),
-  " delay_reason=" + (.reason | @sh),
-  " severity=" + (.statusSeverity | @sh) + "\n")' |
-  while IFS= read -r line; do
-    eval "$line"
-    if [ $severity -eq 8 ] || [ $severity -eq 9 ]; then
-      printf "\033[1;33m ● \033[0m %-20s $line_status | $delay_reason\n" "$line_name"
-    elif [ $severity -lt 8 ]; then
-      printf "\033[0;31m ● \033[0m %-20s $line_status | $delay_reason\n" "$line_name"
-    else
-      printf "\033[0;32m ● \033[0m %-20s $line_status\n" "$line_name"
-    fi
-  done
+  "●;" + (.name) + ";",
+  (.lineStatuses[0] | (.statusSeverity), ";" +
+  (.statusSeverityDescription) + ";",
+  (.reason // "NA") + ";\n")' |
+    awk -F ";" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
+      if ( $5 == "NA" ) reason="";
+      else reason=$5;
+      if ( $3 == 10 ) color=g;
+      else if ( $3 >= 8 ) color=y;
+      else color=r;
+      print color$1,n$2,":",$4,":",reason;
+    }' | column -t -s":"
