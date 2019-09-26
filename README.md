@@ -4,8 +4,8 @@ Access the London Tube lines status in real-time from your terminal.
 ![Alt Text](https://github.com/smallwat3r/tubestatus/blob/master/_demo/demo.gif)  
 
 ## Dependency
-To run this script you will need to install `jq`
-- MacOS `brew install jq`
+To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
+- MacOS           `brew install jq`
 - Ubuntu / Debian `apt-get install jq`
 
 ## Installation
