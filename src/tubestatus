@@ -42,16 +42,16 @@ YELLOW='\033[01;33m'
 NONE='\033[0m'
 
 curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
-  jq -j '.[] |
-  (.name) + "¬",
-  (.lineStatuses[0] | (.statusSeverity), "¬" +
-  (.statusSeverityDescription) + "¬",
-  (.reason // "NA") + "¬\n")' |
-    awk -F "¬" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
-      if ( $4 == "NA" ) reason="";
-      else reason=$4;
-      if ( $2 == 10 ) color=g;
-      else if ( $2 >= 8 ) color=y;
-      else color=r;
-      print color "●" n,$1,"¬",$3,"¬",reason;
-    }' | column -t -s "¬"
+  jq --arg delim "¬" -j '.[] |
+  (.name) + $delim,
+  (.lineStatuses[0] | (.statusSeverity), $delim +
+  (.statusSeverityDescription), $delim +
+  (.reason // "NA") + $delim + "\n")' |
+  awk -F "¬" -v delim="¬" -v r=$RED -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
+    if ( $4 == "NA" ) reason="";
+    else reason=$4;
+    if ( $2 == 10 ) color=g;
+    else if ( $2 >= 8 ) color=y;
+    else color=r;
+    print color "●" n, $1 delim $3 delim reason;
+  }' | column -t -s "¬"
