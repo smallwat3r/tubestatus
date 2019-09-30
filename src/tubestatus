@@ -36,6 +36,7 @@ if ! command -v jq &>/dev/null; then
   exit 0
 fi
 
+LINE_SEARCH=$1
 DELIMITER="¬"
 RED="\033[01;31m"
 GREEN="\033[01;32m"
@@ -50,11 +51,12 @@ curl -s $URL |
   $delim + (.statusSeverityDescription),
   $delim + (.reason) + "\n")' |
   awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED \
-    -v y=$YELLOW -v g=$GREEN -v n=$NONE '{
+    -v y=$YELLOW -v g=$GREEN -v n=$NONE -v line=$LINE_SEARCH '{
     if ( $4 ) reason=$4;
     else reason="";
     if ( $2 == 10 ) color=g;
     else if ( $2 >= 8 ) color=y;
     else color=r;
-    print color "●" n, $1 delim $3 delim reason;
+    if ( index(tolower($1), tolower(line) ))
+      print color "●" n, $1 delim $3 delim reason;
   }' | column -t -s $DELIMITER

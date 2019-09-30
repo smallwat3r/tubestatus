@@ -20,4 +20,5 @@ cp src/tubestatus /usr/local/bin/tubestatus
 chmod 755 /usr/local/bin/tubestatus
 ```
 ## Running
-Running is as easy as a simple `tubestatus` in the terminal.
+Running is as easy as a simple `tubestatus` in the terminal.  
+You can also search for specific lines by typing `tubestatus picca` or `tubestatus baker` (search with 'contains' and it's non-casesensitive).  
