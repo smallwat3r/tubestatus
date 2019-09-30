@@ -21,4 +21,4 @@ chmod 755 /usr/local/bin/tubestatus
 ```
 ## Running
 Running is as easy as a simple `tubestatus` in the terminal.  
-You can also search for specific lines by typing `tubestatus <pattern>`.  
+You can also search for specific lines by typing `tubestatus <contains>`.  
