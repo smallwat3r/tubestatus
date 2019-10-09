@@ -11,6 +11,8 @@ To run this script you will need to install [jq](https://stedolan.github.io/jq/d
 - Ubuntu / Debian `apt-get install jq`
 
 ### Install
+
+Inside the project directory run
 ```sh
 make install 
 ```
