@@ -55,6 +55,7 @@ curl -s $URL |
     if ( $4 ) reason=$4;
     else reason="";
     if ( $2 == 10 ) color=g;
+    else if ( $2 == 20 ) color=r;
     else if ( $2 >= 8 ) color=y;
     else color=r;
     if ( index(tolower($1), tolower(line)) )
