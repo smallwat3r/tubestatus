@@ -11,6 +11,8 @@ To run this script you will need to install [jq](https://stedolan.github.io/jq/d
 - Ubuntu / Debian `apt-get install jq`
 
 ### Install
+
+Inside the project directory run
 ```sh
 make install 
 ```
@@ -21,4 +23,4 @@ chmod 755 /usr/local/bin/tubestatus
 ```
 ## Running
 Running is as easy as a simple `tubestatus` in the terminal.  
-You can also search for specific lines by typing `tubestatus <pattern>`.  
+You can also search for specific lines by typing `tubestatus <contains>`.  
