@@ -1,9 +1,9 @@
-# tubestatus
+# 🚇 tubestatus
 Access the London Tube lines status in real-time from your terminal.
 
 ![Alt Text](https://github.com/smallwat3r/tubestatus/blob/master/_demo/demo.gif)  
 
-## Installation
+## ⚙️ Installation
 
 ### Dependencies
 To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
@@ -25,6 +25,6 @@ or (without cloning)
 ```sh
 sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/src/tubestatus -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
 ```
-## Running
+## 🏁 Running
 Running is as easy as a simple `tubestatus` in the terminal.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
