@@ -38,9 +38,9 @@ fi
 
 LINE_SEARCH=$1
 DELIMITER="¬"
-RED="\033[01;31m"
-GREEN="\033[01;32m"
-YELLOW="\033[01;33m"
+RED="\033[38;5;161m"
+GREEN="\033[38;5;082m"
+YELLOW="\033[38;5;226m"
 NONE="\033[0m"
 URL="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
 
