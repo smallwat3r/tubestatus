@@ -36,6 +36,7 @@ if ! command -v jq &>/dev/null; then
   exit 0
 fi
 
+
 LINE_SEARCH=$1
 DELIMITER="¬"
 RED="\033[38;5;161m"
@@ -43,6 +44,14 @@ GREEN="\033[38;5;082m"
 YELLOW="\033[38;5;226m"
 NONE="\033[0m"
 URL="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
+
+echo
+echo "@@@@@@@ @@@  @@@ @@@@@@@  @@@@@@@@ @@@@@@ @@@@@@@ @@@@@@ @@@@@@@ @@@  @@@  @@@@@@"
+echo "  @!!   @@!  @@@ @@!  @@@ @@!     !@@       @!!  @@!  @@@  @!!   @@!  @@@ !@@    "
+echo "  @!!   @!@  !@! @!@!@!@  @!!!:!   !@@!!    @!!  @!@!@!@!  @!!   @!@  !@!  !@@!! "
+echo "  !!:   !!:  !!! !!:  !!! !!:         !:!   !!:  !!:  !!!  !!:   !!:  !!!     !:!"
+echo "   :     :.:: :  :: : ::  : :: :: ::.: :     :    :   : :   :     :.:: :  ::.: : "
+echo
 
 curl -s $URL |
   jq --arg delim $DELIMITER -j '.[] |
