@@ -1,7 +1,7 @@
 # 🚇 tubestatus
 Access the London Tube lines status in real-time from your terminal.
 
-![Alt Text](https://github.com/smallwat3r/tubestatus/blob/master/_demo/_demo_.gif)  
+![tubestatus](https://i.imgur.com/krkGQTY.gif)
 
 ## ⚙️ Installation
 

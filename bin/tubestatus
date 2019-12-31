@@ -1,0 +1,64 @@
+#!/bin/bash
+# File  : tubestatus.sh
+# Author: Matthieu Petiteau <mpetiteau.pro@gmail.com>
+# Date  : 25.09.2019
+
+# This script fetch the tube line statuses from the TFL API
+# https://api.tfl.gov.uk and returns the results in terminal.
+
+if ! command -v jq &>/dev/null; then
+  echo "You need to install jq to run this script."
+  echo "https://github.com/stedolan/jq"
+  echo
+  case "$OSTYPE" in
+  solaris*)
+    echo "pkgutil -i jq"
+    ;;
+  darwin*)
+    echo "brew install jq"
+    ;;
+  linux*)
+    echo "Debian/Ubuntu  sudo apt-get install jq"
+    echo "Fedora         sudo dnf install jq"
+    echo "openSUSE       sudo zipper install jq"
+    echo "Arch           sudo pacman -Sy jq"
+    ;;
+  bsd*)
+    echo "pkg install jq"
+    ;;
+  msys*)
+    echo "chocolatey install jq"
+    ;;
+  *)
+    echo "https://stedolan.github.io/jq/download/"
+    ;;
+  esac
+  exit 0
+fi
+
+
+LINE_SEARCH=$1
+DELIMITER="¬"
+RED="\033[38;5;161m"
+GREEN="\033[38;5;082m"
+YELLOW="\033[38;5;226m"
+NONE="\033[0m"
+URL="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
+
+curl -s $URL |
+  jq --arg delim $DELIMITER -j '.[] |
+  (.name) + $delim,
+  (.lineStatuses[0] | (.statusSeverity),
+  $delim + (.statusSeverityDescription),
+  $delim + (.reason) + "\n")' |
+  awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED \
+    -v y=$YELLOW -v g=$GREEN -v n=$NONE -v line=$LINE_SEARCH '{
+    if ( $4 ) reason=$4;
+    else reason="";
+    if ( $2 == 10 ) color=g;
+    else if ( $2 == 20 ) color=r;
+    else if ( $2 >= 8 ) color=y;
+    else color=r;
+    if ( index(tolower($1), tolower(line)) )
+      print color "●" n, $1 delim $3 delim reason;
+  }' | column -t -s $DELIMITER
