@@ -18,12 +18,12 @@ make install
 ```
 or
 ```sh
-cp src/tubestatus /usr/local/bin/tubestatus
+cp bin/tubestatus /usr/local/bin/tubestatus
 chmod 755 /usr/local/bin/tubestatus
 ```
 or (without cloning)
 ```sh
-sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/src/tubestatus -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
+sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/bin/tubestatus -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
 ```
 ## 🏁 Running
 Running is as easy as a simple `tubestatus` in the terminal.  
