@@ -46,6 +46,7 @@ curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
     else if ( $2 == 20 ) color=r;
     else if ( $2 >= 8 ) color=y;
     else color=r;
-    print color "●" n, $1 delim $3 delim reason;
+    if ( $2 )
+        print color "●" n, $1 delim $3 delim reason;
   }' | column -t -s "¬"
 ```
