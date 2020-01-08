@@ -1,35 +1,40 @@
 # 🚇 tubestatus
-Access the London Tube lines status in real-time from your terminal.
+Access the London Tube lines status in real-time, from your terminal.
 
 ![tubestatus](https://i.imgur.com/krkGQTY.gif)
 
-## ⚙️ Installation
-
-### Dependencies
+## Dependencies
 To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
-- MacOS           `brew install jq`
-- Ubuntu / Debian `apt-get install jq`
-
-### Install
-
-Inside the project directory run
 ```sh
-make install 
+brew install jq          # macos
+sudo apt-get install jq  # debian / ubuntu
+```
+
+## Install
+
+```sh
+git clone https://github.com/smallwat3r/tubestatus.git && \
+    cp tubestatus && \
+    make install 
 ```
 or
 ```sh
-cp bin/tubestatus /usr/local/bin/tubestatus
-chmod 755 /usr/local/bin/tubestatus
+git clone https://github.com/smallwat3r/tubestatus.git && \
+    cp tubestatus && \
+    cp bin/tubestatus /usr/local/bin/tubestatus && \
+    chmod 755 /usr/local/bin/tubestatus
 ```
 or (without cloning)
 ```sh
-sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/bin/tubestatus -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
+sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/bin/tubestatus \
+    -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
 ```
-## 🏁 Running
+
+## Usage 
 Running is as easy as a simple `tubestatus` in the terminal.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
 
-### One-liner  
+#### One-liner  
 Note that option to search for a specific line has been removed.  
 ```sh
 curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
