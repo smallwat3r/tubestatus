@@ -34,8 +34,9 @@ sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/bin/tub
 Running is as easy as a simple `tubestatus` in the terminal.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
 
-#### One-liner (can't search for specific line)    
+#### One-liner
 ```sh
+# Can't search for a specific line with one-liner
 curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
   jq --arg delim "¬" -j '.[] |
   (.name) + $delim,
