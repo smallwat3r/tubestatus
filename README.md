@@ -3,14 +3,14 @@ Access the London Tube lines status in real-time, from your terminal.
 
 ![tubestatus](https://i.imgur.com/MI10KBJ.gif)
 
-## Dependencies
+## What go you need?
 To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
 ```sh
 brew install jq          # macos
 sudo apt-get install jq  # debian / ubuntu
 ```
 
-## Install
+## How to install it?
 
 ```sh
 git clone https://github.com/smallwat3r/tubestatus.git && \
@@ -30,7 +30,7 @@ sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/tubesta
     -P /usr/local/bin && sudo chmod 755 /usr/local/bin/tubestatus
 ```
 
-## Usage 
+## How to use it? 
 Running is as easy as a simple `tubestatus` in the terminal.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
 
