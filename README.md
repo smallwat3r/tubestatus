@@ -3,7 +3,7 @@ Access the London Tube lines status in real-time, from your terminal.
 
 ![tubestatus](https://i.imgur.com/MI10KBJ.gif)
 
-## What go you need?
+## What do you need?
 To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
 ```sh
 brew install jq          # macos
