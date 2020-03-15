@@ -1,7 +1,7 @@
 # 🚇 tubestatus
 Access the London Tube lines status in real-time, from your terminal.
 
-![tubestatus](https://i.imgur.com/krkGQTY.gif)
+![tubestatus](https://i.imgur.com/MI10KBJ.gif)
 
 ## Dependencies
 To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
