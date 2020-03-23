@@ -54,6 +54,6 @@ curl -s $URL |
               else if ( $2 == 20 ) color=r;
               else if ( $2 >= 8 ) color=y;
               else color=r;
-              if ( index(tolower($1), tolower(line)) && $2 )
+              if ( index(tolower($1), tolower(line)) )
                 print color "●" n, $1 delim $3 delim reason;
             }' | column -t -s $DELIMITER
