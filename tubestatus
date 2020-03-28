@@ -43,18 +43,18 @@ URL="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
 
 curl -s $URL |
   jq --arg delim $DELIMITER -j '.[] |
-      (.name) + $delim,
-      (.lineStatuses[0] | (.statusSeverity),
-      $delim + (.statusSeverityDescription),
-      $delim + (.reason) + "\n")' |
+    (.name) + $delim,
+    (.lineStatuses[0] | (.statusSeverity),
+    $delim + (.statusSeverityDescription),
+    $delim + (.reason) + "\n")' |
   awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED \
     -v y=$YELLOW -v g=$GREEN -v n=$NONE -v line=$LINE_SEARCH '{
-              if ( $4 ) reason=$4;
-              else reason="";
-              if ( $2 == 10 ) color=g;
-              else if ( $2 == 20 ) color=r;
-              else if ( $2 >= 8 ) color=y;
-              else color=r;
-              if ( index(tolower($1), tolower(line)) )
-                print color "●" n, $1 delim $3 delim reason;
-            }' | column -t -s $DELIMITER
+      if ( $4 ) reason=$4;
+      else reason="";
+      if ( $2 == 10 ) color=g;
+      else if ( $2 == 20 ) color=r;
+      else if ( $2 >= 8 ) color=y;
+      else color=r;
+      if ( index(tolower($1), tolower(line)) )
+        print color "●" n, $1 delim $3 delim reason;
+    }' | column -t -s $DELIMITER
