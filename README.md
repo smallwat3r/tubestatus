@@ -31,5 +31,5 @@ sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/tubesta
 ```
 
 ## How to use it? 
-Running is as easy as a simple `tubestatus` in the terminal.  
+Running it is as easy as a simple `tubestatus` in the terminal.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
