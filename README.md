@@ -42,7 +42,7 @@ curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
     (.name) + $delim,
     (.lineStatuses[0] | (.statusSeverity),
     $delim + (.statusSeverityDescription),
-    $delim + (.reason) + "\n")' |
+    $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n")' |
   awk -F "¬" -v delim="¬" -v r="\033[38;5;161m" \
     -v y="\033[38;5;226m" -v g="\033[38;5;082m" -v n="\033[0m" '{
       if ( $4 ) reason=$4;

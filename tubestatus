@@ -46,7 +46,7 @@ curl -s $URL |
     (.name) + $delim,
     (.lineStatuses[0] | (.statusSeverity),
     $delim + (.statusSeverityDescription),
-    $delim + (.reason) + "\n")' |
+    $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n")' |
   awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED \
     -v y=$YELLOW -v g=$GREEN -v n=$NONE -v line=$LINE_SEARCH '{
       if ( $4 ) reason=$4;
