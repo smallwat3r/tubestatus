@@ -43,12 +43,13 @@ curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
     (.lineStatuses[0] | (.statusSeverity),
     $delim + (.statusSeverityDescription),
     $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n")' |
-  awk -F "¬" -v delim="¬" -v r="\033[38;5;161m" \
-    -v y="\033[38;5;226m" -v g="\033[38;5;082m" -v n="\033[0m" '{
+  awk -F "¬" -v delim="¬" -v r="\033[38;5;161m" -v b="\033[38;5;033m" \
+    -v y="\033[38;5;226m" -v g="\033[38;5;082m" -v gr="\033[38;5;008m" -v n="\033[0m" '{
       if ( $4 ) reason=$4;
       else reason="";
       if ( $2 == 10 ) color=g;
-      else if ( $2 == 20 ) color=r;
+      else if ( $2 == 20 ) color=gr;
+      else if ( $2 == 0 ) color=b;
       else if ( $2 >= 8 ) color=y;
       else color=r;
       print color "●" n, $1 delim $3 delim reason;

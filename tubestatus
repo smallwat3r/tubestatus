@@ -35,6 +35,8 @@ fi
 
 LINE_SEARCH=$1
 DELIMITER="¬"
+GREY="\033[38;5;008m"
+BLUE="\033[38;5;033m"
 RED="\033[38;5;161m"
 GREEN="\033[38;5;082m"
 YELLOW="\033[38;5;226m"
@@ -47,12 +49,13 @@ curl -s $URL |
     (.lineStatuses[0] | (.statusSeverity),
     $delim + (.statusSeverityDescription),
     $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n")' |
-  awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED \
-    -v y=$YELLOW -v g=$GREEN -v n=$NONE -v line=$LINE_SEARCH '{
+  awk -F $DELIMITER -v delim=$DELIMITER -v r=$RED -v b=$BLUE \
+    -v y=$YELLOW -v g=$GREEN -v gr=$GREY -v n=$NONE -v line=$LINE_SEARCH '{
       if ( $4 ) reason=$4;
       else reason="";
       if ( $2 == 10 ) color=g;
-      else if ( $2 == 20 ) color=r;
+      else if ( $2 == 20 ) color=gr;
+      else if ( $2 == 0 ) color=b;
       else if ( $2 >= 8 ) color=y;
       else color=r;
       if ( index(tolower($1), tolower(line)) )
