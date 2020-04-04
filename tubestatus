@@ -26,10 +26,10 @@
 # https://api.tfl.gov.uk and returns the results in terminal.
 set -e
 
-if ! command -v jq &>/dev/null; then
-  printf "Error: You need to install jq to run this script\nhttps://stedolan.github.io/jq/download/\n"
+command -v jq >/dev/null 2>&1 || {
+  printf >&2 "Error: You need to install jq to run tubestatus.\nhttps://stedolan.github.io/jq/download/\n"
   exit 1
-fi
+}
 
 _line_search=$1
 _delimiter="¬¬¬"
@@ -59,4 +59,4 @@ curl -s $_url |
       if (index(tolower($1), tolower(line)))
         print color "●" n, $1 delim $3 delim reason;
     }' |
-      column -t -s $_delimiter
+  column -t -s $_delimiter
