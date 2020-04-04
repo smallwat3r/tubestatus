@@ -32,7 +32,7 @@ if ! command -v jq &>/dev/null; then
 fi
 
 _line_search=$1
-_delimiter="¬"
+_delimiter="¬¬¬"
 _grey="\033[38;5;008m"
 _blue="\033[38;5;033m"
 _red="\033[38;5;161m"
