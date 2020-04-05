@@ -24,10 +24,13 @@
 #
 # This script fetchs the tube line statuses from the TFL API
 # https://api.tfl.gov.uk and returns the results in terminal.
+
 set -e
 
 command -v jq >/dev/null 2>&1 || {
-  printf >&2 "Error: You need to install jq to run tubestatus.\nhttps://stedolan.github.io/jq/download/\n"
+  printf '%s\n%s\n' \
+    'Error: You need to install jq to run synonym.' \
+    'https://stedolan.github.io/jq/download/' >&2
   exit 1
 }
 
