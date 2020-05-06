@@ -1,5 +1,7 @@
-# 🚇 tubestatus
-Access the London Tube lines status in real-time, from your terminal.
+<h3 align="center">tubestatus</h3>
+<p align="center">London Tube live status from your terminal using the TFL API.</p>
+
+---
 
 ![tubestatus](https://i.imgur.com/MI10KBJ.gif)
 
