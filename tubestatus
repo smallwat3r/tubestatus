@@ -29,13 +29,12 @@
 
 set -e
 
-command -v jq >/dev/null 2>&1 ||
-  {
-    printf '%s\n%s\n' \
-      'Error: You need to install jq to run tubestatus.' \
-      'https://stedolan.github.io/jq/download/' >&2
-    exit 1
-  }
+command -v jq >/dev/null 2>&1 || {
+  printf '%s\n%s\n' \
+    'Error: You need to install jq to run tubestatus.' \
+    'https://stedolan.github.io/jq/download/' >&2
+  exit 1
+}
 
 _line_search=$1
 _delimiter="¬¬¬"
