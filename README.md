@@ -16,7 +16,7 @@ brew tap smallwat3r/tubestatus \
 
 #### Manual install
 
-To run this script you will need to install 
+To run tubestatus you will need to install 
 [jq](https://stedolan.github.io/jq/download) 
 ```sh
 brew install jq          # macos
