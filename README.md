@@ -16,7 +16,6 @@ brew tap smallwat3r/tubestatus \
 
 #### Manual install
 
-Dependencies:  
 To run this script you will need to install 
 [jq](https://stedolan.github.io/jq/download) 
 ```sh
