@@ -5,26 +5,30 @@
 
 ![tubestatus](https://i.imgur.com/MI10KBJ.gif)
 
-## What do you need?
-To run this script you will need to install [jq](https://stedolan.github.io/jq/download) 
+## Installation
+
+#### Using Homebrew  
+
+```sh
+brew tap smallwat3r/tubestatus \
+  && brew install tubestatus
+```
+
+#### Manual install
+
+Dependencies:  
+To run this script you will need to install 
+[jq](https://stedolan.github.io/jq/download) 
 ```sh
 brew install jq          # macos
 sudo apt-get install jq  # debian / ubuntu
 ```
 
-## How to install it?
-
+then
 ```sh
 git clone https://github.com/smallwat3r/tubestatus.git && \
     cd tubestatus && \
     make install 
-```
-or
-```sh
-git clone https://github.com/smallwat3r/tubestatus.git && \
-    cd tubestatus && \
-    cp tubestatus /usr/local/bin/tubestatus && \
-    chmod 755 /usr/local/bin/tubestatus
 ```
 or (without cloning)
 ```sh
