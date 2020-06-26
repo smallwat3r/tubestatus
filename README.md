@@ -10,7 +10,7 @@
 #### Using Homebrew  
 
 ```sh
-brew tap smallwat3r/tubestatus \
+brew tap smallwat3r/scripts \
   && brew install tubestatus
 ```
 
