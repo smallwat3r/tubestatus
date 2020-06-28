@@ -26,7 +26,6 @@
 #
 # This script fetchs the tube line statuses from the TFL API
 # https://api.tfl.gov.uk and returns the results in terminal.
-
 set -e
 
 command -v jq >/dev/null 2>&1 || {
@@ -36,25 +35,36 @@ command -v jq >/dev/null 2>&1 || {
   exit 1
 }
 
-_line_search=$1
-_delimiter="¬¬¬"
-_grey="\033[38;5;008m"
-_blue="\033[38;5;033m"
-_red="\033[38;5;161m"
-_green="\033[38;5;082m"
-_yellow="\033[38;5;226m"
-_none="\033[0m"
-_url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
+line_search=$1
+delimiter="¬¬¬"
+url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
 
-curl -s $_url |
-  jq --arg delim $_delimiter -j '.[] |
+grey=$(tput setaf 243)
+red=$(tput setaf 161)
+green=$(tput setaf 118)
+yellow=$(tput setaf 226)
+blue=$(tput setaf 39)
+none=$(tput sgr0)
+
+legend() {
+  printf "Legend (service status): %s %s %s %s %s" \
+    "${green} ●${none} Good" \
+    "${yellow} ●${none} Slow" \
+    "${red} ●${none} Issues" \
+    "${grey} ●${none} Closed" \
+    "${blue} ●${none} Special"
+}
+
+call() {
+  curl -s ${url} |
+    jq --arg delim ${delimiter} -j '.[] |
     (.name) + $delim, (
       .lineStatuses[0] | (.statusSeverity),
       $delim + (.statusSeverityDescription),
       (if .reason then $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n" else "\n" end)
     )' |
-  awk -F $_delimiter -v delim=$_delimiter -v r=$_red -v b=$_blue \
-    -v y=$_yellow -v g=$_green -v gr=$_grey -v n=$_none -v line=$_line_search '{
+    awk -F ${delimiter} -v delim=${delimiter} -v r=${red} -v b=${blue} \
+      -v y=${yellow} -v g=${green} -v gr=${grey} -v n=${none} -v line=${line_search} '{
       if ($4) reason=$4; else reason="";
       if ($2 == 10) color=g;
       else if ($2 == 20) color=gr;
@@ -64,4 +74,10 @@ curl -s $_url |
       if (index(tolower($1), tolower(line)))
         print color "●" n, $1 delim $3 delim reason;
     }' |
-  column -t -s $_delimiter
+    column -t -s ${delimiter}
+}
+
+result="$(call)"
+[[ -z ${result} ]] &&
+  printf "Couldn't find line '${line_search}'.\n" >&2 ||
+  printf "$(legend)\n\n${result}\n"
