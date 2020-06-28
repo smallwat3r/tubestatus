@@ -3,7 +3,9 @@
 
 ---
 
-![tubestatus](https://i.imgur.com/uia0KWF.gif)
+<div align="center">
+![tubestatus](https://i.imgur.com/bbdHFKl.gif)
+</div>
 
 ## Installation
 
