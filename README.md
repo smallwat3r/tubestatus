@@ -3,7 +3,7 @@
 
 ---
 
-![tubestatus](https://i.imgur.com/MI10KBJ.gif)
+![tubestatus](https://i.imgur.com/uia0KWF.gif)
 
 ## Installation
 
