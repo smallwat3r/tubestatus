@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 # MIT License
 #
 # Copyright (c) 2020 Matthieu Petiteau
@@ -21,7 +21,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#
+
 # Dependencies: jq
 #
 # This script fetchs the tube line statuses from the TFL API
@@ -35,7 +35,7 @@ command -v jq >/dev/null 2>&1 || {
   exit 1
 }
 
-line_search=$1
+line_search="$1"
 delimiter="¬¬¬"
 url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
 
@@ -63,8 +63,8 @@ call() {
       $delim + (.statusSeverityDescription),
       (if .reason then $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n" else "\n" end)
     )' |
-    awk -F ${delimiter} -v delim=${delimiter} -v r=${red} -v b=${blue} \
-      -v y=${yellow} -v g=${green} -v gr=${grey} -v n=${none} -v line=${line_search} '{
+    awk -F "${delimiter}" -v delim="${delimiter}" -v r="${red}" -v b="${blue}" \
+      -v y="${yellow}" -v g="${green}" -v gr="${grey}" -v n="${none}" -v line="${line_search}" '{
       if ($4) reason=$4; else reason="";
       if ($2 == 10) color=g;
       else if ($2 == 20) color=gr;
@@ -78,6 +78,9 @@ call() {
 }
 
 result="$(call)"
-[[ -z ${result} ]] &&
-  printf "Couldn't find line '${line_search}'.\n" >&2 ||
-  printf "$(legend)\n\n${result}\n"
+
+if [[ -z ${result} ]]; then
+  printf 'Could not find line %s.\n' "${line_search}" >&2
+else
+  printf '%s\n\n%s\n' "$(legend)" "${result}"
+fi
