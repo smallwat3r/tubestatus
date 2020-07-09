@@ -78,9 +78,9 @@ call() {
 }
 
 result="$(call)"
-
-if [[ -z ${result} ]]; then
+[[ -z ${result} ]] && {
   printf 'Could not find line %s.\n' "${line_search}" >&2
-else
-  printf '%s\n\n%s\n' "$(legend)" "${result}"
-fi
+  exit 1
+}
+
+printf '%s\n\n%s\n' "$(legend)" "${result}"
