@@ -1,8 +1,12 @@
-# tubestatus
+.PHONY: install uninstall linter
+SCRIPT := tubestatus
 
 install:
-	cp tubestatus /usr/local/bin/tubestatus
-	chmod 755 /usr/local/bin/tubestatus
+	cp $(SCRIPT) /usr/local/bin/$(SCRIPT)
+	chmod 755 /usr/local/bin/$(SCRIPT)
 
 uninstall:
-	rm -f /usr/local/bin/tubestatus
+	rm -f /usr/local/bin/$(SCRIPT)
+
+linter:
+	shellcheck ./$(SCRIPT)

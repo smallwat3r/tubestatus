@@ -26,7 +26,7 @@ sudo apt-get install jq  # debian / ubuntu
 then
 ```sh
 git clone https://github.com/smallwat3r/tubestatus.git \
-    && cd tubestatus && make install 
+    && cd tubestatus && sudo make install 
 ```
 or (without cloning)
 ```sh
