@@ -7,7 +7,7 @@
 
 ## Installation
 
-#### Using Homebrew  
+#### Using Homebrew
 
 ```sh
 brew tap smallwat3r/scripts \
@@ -37,3 +37,39 @@ sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/tubesta
 ## How to use it? 
 Type `tubestatus` in your terminal to view all the lines.  
 You can also search for specific lines by typing `tubestatus <contains>`.  
+
+``` console
+$ man tubestatus
+
+TUBESTATUS(1)             BSD General Commands Manual            TUBESTATUS(1)
+
+NAME
+     tubestatus -- fetch the Tube line statuses from the TfL API
+
+SYNOPSIS
+     tubestatus [line]
+
+DESCRIPTION
+     The tubestatus utility will print out the London Tube live line statuses 
+     from the TfL API (http://api.tfl.gov.uk) in your terminal window.
+
+EXIT STATUS
+     The tubestatus utility exits 0 on success, and >0 if an error occurs.
+
+EXAMPLES
+     The command:
+
+           tubestatus
+
+     will print all the lines statuses results
+
+     The command:
+
+           tubestatus central
+
+     will print the service status for the central line, or all lines that
+     contains 'central' in their name
+
+BSD                           September 21, 2020                           BSD
+```
+
