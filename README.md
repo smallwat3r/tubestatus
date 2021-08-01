@@ -35,41 +35,32 @@ sudo wget https://raw.githubusercontent.com/smallwat3r/tubestatus/master/tubesta
 ```
 
 ## How to use it? 
-Type `tubestatus` in your terminal to view all the lines.  
-You can also search for specific lines by typing `tubestatus <contains>`.  
 
-``` console
-$ man tubestatus
+Run `tubestatus` in your terminal to view the status of all the lines. You can also search 
+for specific lines by running `tubestatus <contains>`. Run `man tubestatus` for more details.  
 
-TUBESTATUS(1)             BSD General Commands Manual            TUBESTATUS(1)
 
-NAME
-     tubestatus -- fetch the Tube line statuses from the TfL API
+## For the one-liner lovers out there
 
-SYNOPSIS
-     tubestatus [line]
-
-DESCRIPTION
-     The tubestatus utility will print out the London Tube live line statuses 
-     from the TfL API (http://api.tfl.gov.uk) in your terminal window.
-
-EXIT STATUS
-     The tubestatus utility exits 0 on success, and >0 if an error occurs.
-
-EXAMPLES
-     The command:
-
-           tubestatus
-
-     will print all the lines statuses results
-
-     The command:
-
-           tubestatus central
-
-     will print the service status for the central line, or all lines that
-     contains 'central' in their name
-
-BSD                           September 21, 2020                           BSD
+```sh
+curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
+  jq --arg delim "¬¬¬" -j '.[] |
+  (.name) + $delim, (
+      .lineStatuses[0] | (.statusSeverity),
+      $delim + (.statusSeverityDescription),
+      (if .reason then $delim + (.reason | gsub("[\\n\\t]"; "")) + "\n" else "\n" end)
+  )' |
+  awk -F "¬¬¬" -v delim="¬¬¬" -v r="$(tput setaf 161)" -v b="$(tput setaf 39)" \
+      -v y="$(tput setaf 226)" -v g="$(tput setaf 118)" -v gr="$(tput setaf 243)" \
+      -v n="$(tput sgr0)" -v line="$1" '{
+      if ($4) reason=$4; else reason="";
+      if ($2 == 10) color=g;
+      else if ($2 == 20) color=gr;
+      else if ($2 == 0) color=b;
+      else if ($2 >= 8) color=y;
+      else color=r;
+      if (index(tolower($1), tolower(line)))
+      print color "●" n, $1 delim $3 delim reason;
+  }' |
+  column -t -s "¬¬¬"
 ```
-
