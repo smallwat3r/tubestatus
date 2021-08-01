@@ -52,14 +52,13 @@ curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
   )' |
   awk -F "¬¬¬" -v delim="¬¬¬" -v r="$(tput setaf 161)" -v b="$(tput setaf 39)" \
       -v y="$(tput setaf 226)" -v g="$(tput setaf 118)" -v gr="$(tput setaf 243)" \
-      -v n="$(tput sgr0)" -v line="$1" '{
+      -v n="$(tput sgr0)" '{
       if ($4) reason=$4; else reason="";
       if ($2 == 10) color=g;
       else if ($2 == 20) color=gr;
       else if ($2 == 0) color=b;
       else if ($2 >= 8) color=y;
       else color=r;
-      if (index(tolower($1), tolower(line)))
       print color "●" n, $1 delim $3 delim reason;
   }' |
   column -t -s "¬¬¬"
