@@ -37,7 +37,7 @@ command -v jq >/dev/null 2>&1 || {
 
 line_search="$1"
 delimiter="¬¬¬"
-url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status"
+url="https://api.tfl.gov.uk/line/mode/tube,overground,dlr/status"
 
 grey=$(tput setaf 243)
 red=$(tput setaf 161)
