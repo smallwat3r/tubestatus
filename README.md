@@ -43,7 +43,7 @@ for specific lines by running `tubestatus <contains>`. Run `man tubestatus` for 
 ## For the one-liner lovers out there
 
 ```sh
-curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail/status" |
+curl -s "https://api.tfl.gov.uk/line/mode/tube,overground,dlr/status" |
   jq --arg delim "¬¬¬" -j '.[] |
   (.name) + $delim, (
       .lineStatuses[0] | (.statusSeverity),
